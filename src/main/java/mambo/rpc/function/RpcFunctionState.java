@@ -1,0 +1,10 @@
+package mambo.rpc.function;
+
+public enum RpcFunctionState {
+	HANDLE_CREATED,
+	FUNCTION_SUBMITTED,
+	FUNCTION_ENQUEUED,
+	CALL_SENT,
+	REPLY_RECEIVED,
+	FUNCTION_COMPLETE
+}
