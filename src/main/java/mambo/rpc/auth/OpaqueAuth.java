@@ -6,7 +6,7 @@ import mambo.rpc.xdr.Xdr;
 import mambo.rpc.xdr.XdrSerializable;
 
 
-public class OpaqueAuth implements XdrSerializable {
+public abstract class OpaqueAuth implements XdrSerializable {
 
 	final AuthFlavor flavor;
 	
@@ -20,11 +20,6 @@ public class OpaqueAuth implements XdrSerializable {
 	
 	public AuthFlavor getAuthFlavor() {
 		return flavor;
-	}
-
-	public ByteBuffer serializeToXdr(ByteBuffer buffer) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public OpaqueAuth buildFromXdr(ByteBuffer buffer) {

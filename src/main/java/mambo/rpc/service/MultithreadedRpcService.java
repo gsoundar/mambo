@@ -28,7 +28,7 @@ public class MultithreadedRpcService {
 
 	
 	public static final Logger LOG = LoggerFactory.getLogger(MultithreadedRpcService.class);
-	public static final int NUM_CONNECTIONS = 16;
+	public static final int NUM_CONNECTIONS = 1;
 	
 	final String hostname;
 	final int port;
@@ -57,12 +57,15 @@ public class MultithreadedRpcService {
 			RpcCallHandle handle = new RpcCallHandle(function);
 			
 			/* Get a connection to the server */
-			SocketChannel conn = connections.poll();
+			/*SocketChannel conn = connections.poll();
 			if(conn == null) {
 				LOG.info("No available connection, so make a new one");
 				conn = SocketChannel.open();
 				conn.connect(new InetSocketAddress(hostname, port));
-			}
+			}*/
+			
+			SocketChannel conn = SocketChannel.open();
+			conn.connect(new InetSocketAddress(hostname, port));
 			
 			/* Make a RPC call */
 			{
@@ -79,13 +82,13 @@ public class MultithreadedRpcService {
 				callHeaderBuffer.flip();
 				bytesSent = conn.write(callHeaderBuffer);
 				assert(bytesSent == 4);
-				LOG.info("Sent call message header to server");
+				LOG.info("Sent call message header to server bytes=" + bytesSent);
 				
 				/* 3-of-4 Send call body */
 				callMessageBuffer.flip();
 				bytesSent = conn.write(callMessageBuffer);
 				assert(bytesSent == callMessageBufferSize);
-				LOG.info("Sent call message body to server");
+				LOG.info("Sent call message body to server bytes=" + bytesSent);
 				
 				/* 4-of-4 Update state */
 				handle.setState(RpcFunctionState.FUNCTION_SUBMITTED);
@@ -126,7 +129,8 @@ public class MultithreadedRpcService {
 			}
 			
 			/* Put the connection into the free list */
-			connections.add(conn);
+			//connections.add(conn);
+			conn.close();
 			
 			/* Signal done */
 			handle.signalCompletion();

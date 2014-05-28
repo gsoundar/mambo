@@ -9,7 +9,16 @@ public class RpcBindTest {
 	
 	public static void main(String args[]) throws Exception {
 		
-		RpcBindV4 service = new RpcBindV4("localhost");
+		String hostname;
+		
+		if(args.length != 1) {
+			System.err.println("USAGE: " + RpcBindTest.class.getSimpleName() + " <hostname>");
+			System.exit(-1);
+		}
+		
+		hostname = args[0];
+		
+		RpcBindV4 service = new RpcBindV4(hostname);
 		
 		for(int i=0; i < 5; i++) {
 			

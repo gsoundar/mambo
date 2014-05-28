@@ -70,11 +70,26 @@ public final class AuthStatus implements XdrSerializable {
 	}
 
 	public String toString() {
-		/* TODO: Fill this in later */
-		if(value == AUTH_OK.value) {
+		if(this.equals(AUTH_OK)) {
 			return "AUTH_OK";
+		} else if(this.equals(AUTH_BADCRED)) {
+			return "AUTH_BADCRED";
+		} else if(this.equals(AUTH_REJECTEDCRED)) {
+			return "AUTH_REJECTEDCRED";
+		} else if(this.equals(AUTH_BADVERF)) {
+			return "AUTH_BADVERF";
+		} else if(this.equals(AUTH_REJECTEDVERF)) {
+			return "AUTH_REJECTEDVERF";
+		}  else if(this.equals(AUTH_TOOWEAK)) {
+			return "AUTH_TOOWEAK";
+		} else if(this.equals(AUTH_INVALIDREF)) {
+			return "AUTH_INVALIDREF";
+		} else if(this.equals(AUTH_FAILED)) {
+			return "AUTH_FAILED";
+		}  else if(this.equals(RPCSEC_GSS_CREDPROBLEM)) {
+			return "AUTH_GSS_CREDPROBLEM";
 		} else {
-			return "AUTH_FAILURE";
+			return "AUTH_UNKNOWN_" + value;
 		}
 	}
 

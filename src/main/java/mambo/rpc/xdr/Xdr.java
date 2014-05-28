@@ -143,6 +143,14 @@ public class Xdr {
 		return new String(bytes);
 	}
 	
+	public static byte[] decodeDynamicOpaque(ByteBuffer buffer) {
+		int length = buffer.getInt();
+		byte[] bytes = new byte[length];
+		LOG.info("Encoded bytes is supposed to be " + length + " bytes long");
+		decodeOpaque(buffer, bytes, 0, length);
+		return bytes;
+	}
+	
 	public static byte[] decodeOpaque(ByteBuffer buffer, byte[] bytes, int offset, int length) {
 		int padding = (4 - (length & 3)) & 3;
 		buffer.get(bytes, offset, length);

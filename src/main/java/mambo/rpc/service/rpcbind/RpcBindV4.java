@@ -23,7 +23,7 @@ public class RpcBindV4 extends MultithreadedRpcService {
 
 	public static final int RPC_VERSION = 2;
 	public static final int PROGRAM_ID = 100000;
-	public static final int PROGRAM_VERSION = 4;
+	public static final int PROGRAM_VERSION = 3;
 	
 	final static Logger LOG = LoggerFactory.getLogger(RpcBindV4.class);
 	
